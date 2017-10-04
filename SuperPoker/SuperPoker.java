@@ -83,6 +83,31 @@ public class SuperPoker{
 		return false; 
 	}
 	
+	public static int findRank(ArrayList<Card<Integer, Character>> hand){
+		if(isRoyalFlush){
+			return 1; 
+		}else if(isStraightFlush){
+			return 2; 
+		}else if(isFourKind){
+			return 3;
+		}else if(isFullHouse){
+			return 4;
+		}else if(isFlush){
+			return 5; 
+		}else if(isStraight){
+			return 6; 
+		}else if(isThreeKind){
+			return 7; 
+		}else if(isTwoPair){
+			return 8; 
+		}else if(isPair){
+			return 9; 
+		}else(if isHighCard){
+			return 10; 
+		}
+		
+		return 0; 
+	}
 	
 	/*
 	 * The main method scans in lines as individual poker hands
@@ -163,6 +188,8 @@ public class SuperPoker{
 		
 		sc.close();
 	}
+	
+	
 	
 	/*
 	 * Uses insertion sort to sort the hand as it is a small set of numbers with a 
