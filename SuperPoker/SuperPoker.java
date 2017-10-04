@@ -41,7 +41,7 @@ public class SuperPoker{
 		seperators.add('-');
 	}
 	
-	public Boolean isRoyalFlush(ArrayList<Card<Integer, Character>> hand){
+	public static Boolean isRoyalFlush(ArrayList<Card<Integer, Character>> hand){
 		int ten = hand.get(0).getNumber();
 		if (ten != 10) {
 			return false;
@@ -71,7 +71,7 @@ public class SuperPoker{
 		return true; 
 	}
 	
-	public Boolean isStraightFlush(ArrayList<Card<Integer, Character>> hand){
+	public static Boolean isStraightFlush(ArrayList<Card<Integer, Character>> hand){
 		Character suit = hand.get(0).getSuit();
 		for (Card<Integer, Character> c : hand) {
 			if (c.getSuit() != suit) {
@@ -97,7 +97,7 @@ public class SuperPoker{
 		return false; 
 	}
 	
-	public Boolean isFlush(ArrayList<Card<Integer, Character>> hand){
+	public static Boolean isFlush(ArrayList<Card<Integer, Character>> hand){
 		Character suit = hand.get(0).getSuit();
 		for (Card<Integer, Character> c : hand) {
 			if (c.getSuit() != suit) {
@@ -107,7 +107,7 @@ public class SuperPoker{
 		return true;
 	}
 	
-	public Boolean isStraight(ArrayList<Card<Integer, Character>> hand){
+	public static Boolean isStraight(ArrayList<Card<Integer, Character>> hand){
 		int firstNum = hand.get(0).getSuit();
 		for (Card<Integer, Character> c : hand) {
 			int nextNum = firstNum++;
