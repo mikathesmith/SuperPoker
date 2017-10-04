@@ -1,9 +1,7 @@
 /*
- * Etude 3: Poker Hands
- * Author : Mika Smith
+ * Etude 13: Super Sized Poker Hands
+ * Authors : Mika Smith, Kimberley Louw, Nathan Hardy, Mathew Boyes
  * 
- * This program takes in a line of input as 5 cards in a hand in poker,
- * validates it and prints the hand in ascending value. 
  */
 
 import java.io.*;
@@ -44,11 +42,51 @@ public class SuperPoker{
 	}
 	
 	public Boolean isRoyalFlush(ArrayList<Card<Integer, Character>> hand){
-		return false; 
+		int ten = hand.get(0).getNumber();
+		if (ten != 10) {
+			return false;
+		}
+		int jack = hand.get(1).getNumber();
+		if (jack == 11) {
+			return false;
+		}
+		int queen = hand.get(2).getNumber();
+		if (queen == 12) {
+			return false;
+		}
+		int king = hand.get(3).getNumber();
+		if (king == 13) {
+			return false;
+		}
+		int ace = hand.get(4).getNumber();
+		if (ace == 1) {
+			return false;
+		}
+		Character suit = hand.get(0).getSuit();
+		for (Card<Integer, Character> c : hand) {
+			if (c.getSuit() != suit) {
+				return false;
+			}
+		}		
+		return true; 
 	}
 	
 	public Boolean isStraightFlush(ArrayList<Card<Integer, Character>> hand){
-		return false; 
+		Character suit = hand.get(0).getSuit();
+		for (Card<Integer, Character> c : hand) {
+			if (c.getSuit() != suit) {
+				return false;
+			}
+		}
+		int firstNum = hand.get(0).getSuit();
+		for (Card<Integer, Character> c : hand) {
+			int nextNum = firstNum++;
+			if (c.getNumber() != nextNum) {
+				return false;
+			}
+			nextNum++;
+		}		
+		return true;
 	}
 	
 	public Boolean isFourKind(ArrayList<Card<Integer, Character>> hand){
@@ -60,11 +98,25 @@ public class SuperPoker{
 	}
 	
 	public Boolean isFlush(ArrayList<Card<Integer, Character>> hand){
-		return false; 
+		Character suit = hand.get(0).getSuit();
+		for (Card<Integer, Character> c : hand) {
+			if (c.getSuit() != suit) {
+				return false;
+			}
+		}		
+		return true;
 	}
 	
 	public Boolean isStraight(ArrayList<Card<Integer, Character>> hand){
-		return false; 
+		int firstNum = hand.get(0).getSuit();
+		for (Card<Integer, Character> c : hand) {
+			int nextNum = firstNum++;
+			if (c.getNumber() != nextNum) {
+				return false;
+			}
+			nextNum++;
+		}		
+		return true; 
 	}
 	
 	public Boolean isThreeKind(ArrayList<Card<Integer, Character>> hand){
