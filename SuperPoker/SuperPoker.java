@@ -13,7 +13,7 @@ public class SuperPoker{
 	private static HashMap<Character, Integer> nums = new HashMap<Character, Integer>(); 
 	private static ArrayList<Character> suits = new ArrayList<Character>(); 
 	private static ArrayList<Character> seperators = new ArrayList<Character>();
-	public static ArrayList<Card<Integer, Character>> hand;
+	public static ArrayList<Card<Integer, Character>> hand = new ArrayList<Card<Integer, Character>>();
 	public static HashMap<Integer, String> ranks = new HashMap<Integer, String>(); 
 	public static char seperatorType; 
 	public static Boolean valid;
@@ -89,11 +89,11 @@ public class SuperPoker{
 		return true;
 	}
 	
-	public Boolean isFourKind(ArrayList<Card<Integer, Character>> hand){
+	public static Boolean isFourKind(ArrayList<Card<Integer, Character>> hand){
 		return false; 
 	}
 	
-	public Boolean isFullHouse(ArrayList<Card<Integer, Character>> hand){
+	public static Boolean isFullHouse(ArrayList<Card<Integer, Character>> hand){
 		return false; 
 	}
 	
@@ -119,42 +119,42 @@ public class SuperPoker{
 		return true; 
 	}
 	
-	public Boolean isThreeKind(ArrayList<Card<Integer, Character>> hand){
+	public  static Boolean isThreeKind(ArrayList<Card<Integer, Character>> hand){
 		return false; 
 	}
 	
-	public Boolean isTwoPair(ArrayList<Card<Integer, Character>> hand){
+	public static Boolean isTwoPair(ArrayList<Card<Integer, Character>> hand){
 		return false; 
 	}
 	
-	public Boolean isPair(ArrayList<Card<Integer, Character>> hand){
+	public static Boolean isPair(ArrayList<Card<Integer, Character>> hand){
 		return false; 
 	}
 	
-	public Boolean isHighCard(ArrayList<Card<Integer, Character>> hand){
+	public static Boolean isHighCard(ArrayList<Card<Integer, Character>> hand){
 		return false; 
 	}
 	
 	public static int findRank(ArrayList<Card<Integer, Character>> hand){
-		if(isRoyalFlush){
+		if(isRoyalFlush(hand)){
 			return 1; 
-		}else if(isStraightFlush){
+		}else if(isStraightFlush(hand)){
 			return 2; 
-		}else if(isFourKind){
+		}else if(isFourKind(hand)){
 			return 3;
-		}else if(isFullHouse){
+		}else if(isFullHouse(hand)){
 			return 4;
-		}else if(isFlush){
+		}else if(isFlush(hand)){
 			return 5; 
-		}else if(isStraight){
+		}else if(isStraight(hand)){
 			return 6; 
-		}else if(isThreeKind){
+		}else if(isThreeKind(hand)){
 			return 7; 
-		}else if(isTwoPair){
+		}else if(isTwoPair(hand)){
 			return 8; 
-		}else if(isPair){
+		}else if(isPair(hand)){
 			return 9; 
-		}else(if isHighCard){
+		}else if(isHighCard(hand)){
 			return 10; 
 		}
 		
@@ -171,7 +171,7 @@ public class SuperPoker{
 		while(sc.hasNextLine()){
 			PokerHands poker = new PokerHands(); 
 			String line = sc.nextLine(); 
-			
+			System.out.println(line);
 			Card<Integer,Character> card;
 			valid = true; 
 			String numString="";
@@ -206,8 +206,10 @@ public class SuperPoker{
 				}
 			}
 			
+			System.out.println("sorting cards ");
+		//	for(Card i : hand) System.out.print(i.getNumber() + i.getSuit());
 			//Check validity and sort hand 
-			sortHand();
+			sortHand(hand);
 			
 			if(hand.size()!=5 || !valid){ 
 				System.out.println("Invalid: " + line);
@@ -234,6 +236,7 @@ public class SuperPoker{
 					sb.append(c.getSuit()+" ");
 				}
 				System.out.println(sb.toString());
+			    System.out.println("Rank of hand is " + findRank(hand));
 				//System.out.println();
 			}				
 		}
@@ -248,8 +251,9 @@ public class SuperPoker{
 	 * small range. While we are comparing, it also checks if the cards are identical,
 	 * in which case the hand will be invalid. 
 	 */
-	public static void sortHand(){    
+	public static void sortHand(ArrayList<Card<Integer, Character>> hand){    
 		//for each value in the hand. 
+	//	System.out.println("hand is " + hand);
 		for(int i=1; i < hand.size(); i++){
 	        Card<Integer, Character> value = hand.get(i);
 	        int j = i-1;
