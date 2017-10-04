@@ -16,6 +16,7 @@ public class SuperPoker{
 	private static ArrayList<Character> suits = new ArrayList<Character>(); 
 	private static ArrayList<Character> seperators = new ArrayList<Character>();
 	public static ArrayList<Card<Integer, Character>> hand;
+	public static HashMap<Integer, String> ranks = new HashMap<Integer, String>(); 
 	public static char seperatorType; 
 	public static Boolean valid;
 	
@@ -41,6 +42,47 @@ public class SuperPoker{
 		seperators.add('/');
 		seperators.add('-');
 	}
+	
+	public Boolean isRoyalFlush(ArrayList<Card<Integer, Character>> hand){
+		return false; 
+	}
+	
+	public Boolean isStraightFlush(ArrayList<Card<Integer, Character>> hand){
+		return false; 
+	}
+	
+	public Boolean isFourKind(ArrayList<Card<Integer, Character>> hand){
+		return false; 
+	}
+	
+	public Boolean isFullHouse(ArrayList<Card<Integer, Character>> hand){
+		return false; 
+	}
+	
+	public Boolean isFlush(ArrayList<Card<Integer, Character>> hand){
+		return false; 
+	}
+	
+	public Boolean isStraight(ArrayList<Card<Integer, Character>> hand){
+		return false; 
+	}
+	
+	public Boolean isThreeKind(ArrayList<Card<Integer, Character>> hand){
+		return false; 
+	}
+	
+	public Boolean isTwoPair(ArrayList<Card<Integer, Character>> hand){
+		return false; 
+	}
+	
+	public Boolean isPair(ArrayList<Card<Integer, Character>> hand){
+		return false; 
+	}
+	
+	public Boolean isHighCard(ArrayList<Card<Integer, Character>> hand){
+		return false; 
+	}
+	
 	
 	/*
 	 * The main method scans in lines as individual poker hands
