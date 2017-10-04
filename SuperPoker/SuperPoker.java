@@ -9,7 +9,7 @@
 import java.io.*;
 import java.util.*;
 
-public class PokerHands{
+public class SuperPoker{
 	
 	private static int[] order;
 	private static HashMap<Character, Integer> nums = new HashMap<Character, Integer>(); 
@@ -22,7 +22,7 @@ public class PokerHands{
 	/*
 	 * Constructor to initialise values. 
 	 */
-	public PokerHands(){
+	public SuperPoker(){
 		order = new int[]{2,3,4,5,6,7,8,9,10,11,12,13,1};
 		hand = new ArrayList<Card<Integer, Character>>();
 		
