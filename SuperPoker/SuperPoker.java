@@ -47,19 +47,19 @@ public class SuperPoker{
 			return false;
 		}
 		int jack = hand.get(1).getNumber();
-		if (jack == 11) {
+		if (jack != 11) {
 			return false;
 		}
 		int queen = hand.get(2).getNumber();
-		if (queen == 12) {
+		if (queen != 12) {
 			return false;
 		}
 		int king = hand.get(3).getNumber();
-		if (king == 13) {
+		if (king != 13) {
 			return false;
 		}
 		int ace = hand.get(4).getNumber();
-		if (ace == 1) {
+		if (ace != 1) {
 			return false;
 		}
 		Character suit = hand.get(0).getSuit();
@@ -72,29 +72,34 @@ public class SuperPoker{
 	}
 	
 	public static Boolean isStraightFlush(ArrayList<Card<Integer, Character>> hand){
-		Character suit = hand.get(0).getSuit();
-		for (Card<Integer, Character> c : hand) {
-			if (c.getSuit() != suit) {
-				return false;
-			}
+		if (isFlush(hand) && isStraight(hand)) {
+			return true;
+		} else {
+			return false;
 		}
-		int firstNum = hand.get(0).getSuit();
-		for (Card<Integer, Character> c : hand) {
-			int nextNum = firstNum++;
-			if (c.getNumber() != nextNum) {
-				return false;
-			}
-			nextNum++;
-		}		
-		return true;
 	}
 	
 	public static Boolean isFourKind(ArrayList<Card<Integer, Character>> hand){
-		return false; 
+		int first = hand.get(0).getNumber();
+		int second = hand.get(1).getNumber();
+		int third = hand.get(2).getNumber();
+		int fourth = hand.get(3).getNumber();
+		int fifth = hand.get(4).getNumber();
+		if (first == second && second == third && third == fourth) {
+			return true;
+		} else if (second == third && third == fourth && fourth == fifth) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public static Boolean isFullHouse(ArrayList<Card<Integer, Character>> hand){
-		return false; 
+		if (isThreeKind(hand) && isPair(hand)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public static Boolean isFlush(ArrayList<Card<Integer, Character>> hand){
@@ -108,7 +113,7 @@ public class SuperPoker{
 	}
 	
 	public static Boolean isStraight(ArrayList<Card<Integer, Character>> hand){
-		int firstNum = hand.get(0).getSuit();
+		int firstNum = hand.get(0).getNumber();
 		for (Card<Integer, Character> c : hand) {
 			int nextNum = firstNum++;
 			if (c.getNumber() != nextNum) {
@@ -120,19 +125,68 @@ public class SuperPoker{
 	}
 	
 	public  static Boolean isThreeKind(ArrayList<Card<Integer, Character>> hand){
-		return false; 
+		int first = hand.get(0).getNumber();
+		int second = hand.get(1).getNumber();
+		int third = hand.get(2).getNumber();
+		int fourth = hand.get(3).getNumber();
+		int fifth = hand.get(4).getNumber();
+		if (first == second && second == third) {
+			return true;
+		} else if (second == third && third == fourth) {
+			return true;
+		} else if (third == fourth && fourth == fifth) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public static Boolean isTwoPair(ArrayList<Card<Integer, Character>> hand){
-		return false; 
+		int first = hand.get(0).getNumber();
+		int second = hand.get(1).getNumber();
+		int third = hand.get(2).getNumber();
+		int fourth = hand.get(3).getNumber();
+		int fifth = hand.get(4).getNumber();
+		if (first == second) {
+			if (third == fourth) {
+				return true;
+			} else if (fourth == fifth) {
+				return true;
+			} else {
+				return false;
+			}
+		} else if (second == third) {
+			if (fourth == fifth) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
 	}
 	
 	public static Boolean isPair(ArrayList<Card<Integer, Character>> hand){
-		return false; 
+		int first = hand.get(0).getNumber();
+		int second = hand.get(1).getNumber();
+		int third = hand.get(2).getNumber();
+		int fourth = hand.get(3).getNumber();
+		int fifth = hand.get(4).getNumber();
+		if (first == second) {
+			return true;
+		} else if (second == third) {
+			return true;
+		} else if (third == fourth) {
+			return true;
+		} else if (fourth == fifth) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public static Boolean isHighCard(ArrayList<Card<Integer, Character>> hand){
-		return false; 
+		return true; 
 	}
 	
 	public static int findRank(ArrayList<Card<Integer, Character>> hand){
