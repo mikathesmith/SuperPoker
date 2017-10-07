@@ -1,18 +1,6 @@
-6s/3d/KS/Ad/13C
-As/3d/QS/ad/13C
-As 2d QS Td 13C
-as/3d/QS/Ad/13C
-as-3d-QS-Td-13C
-As/3d/QS/Ad/13C
-
-as/3d/QS/Ad/14C
-As/3d/QS/Ad
-2s/3d/QS/4d/13C/4s
-As/3d-QS/Ad/13C
-as/3d/0S/Td/13C
-as/3d/2S/Td
-as/3d/4S/Td/13C/7D
-as-3d-QS-Td/13C
-as/3d/QS/Ad/14C
-As/As/QS/Ad/As/
-hello 
+4
+AC 4d
+1S 9s
+Kh 13d
+5d 6d
+KC 8s 7S 4H 4c
