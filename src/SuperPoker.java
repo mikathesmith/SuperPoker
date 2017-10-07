@@ -22,7 +22,7 @@ public class SuperPoker {
         System.out.println("House: " + house);
     }
 
-    public static Boolean isRoyalFlush(ArrayList<Card> hand){
+    public static boolean isRoyalFlush(ArrayList<Card> hand) {
         int ten = hand.get(0).getNumber();
         if (ten != 10) {
             return false;
@@ -52,7 +52,7 @@ public class SuperPoker {
         return true;
     }
 
-    public static Boolean isStraightFlush(ArrayList<Card> hand){
+    public static boolean isStraightFlush(ArrayList<Card> hand) {
         if (isFlush(hand) && isStraight(hand)) {
             return true;
         } else {
@@ -60,7 +60,7 @@ public class SuperPoker {
         }
     }
 
-    public static Boolean isFourKind(ArrayList<Card> hand){
+    public static boolean isFourKind(ArrayList<Card> hand) {
         int first = hand.get(0).getNumber();
         int second = hand.get(1).getNumber();
         int third = hand.get(2).getNumber();
@@ -75,7 +75,7 @@ public class SuperPoker {
         }
     }
 
-    public static Boolean isFullHouse(ArrayList<Card> hand){
+    public static boolean isFullHouse(ArrayList<Card> hand){
         if (isThreeKind(hand) && isPair(hand)) {
             return true;
         } else {
@@ -83,7 +83,7 @@ public class SuperPoker {
         }
     }
 
-    public static Boolean isFlush(ArrayList<Card> hand){
+    public static boolean isFlush(ArrayList<Card> hand){
         Character suit = hand.get(0).getSuit();
         for (Card c : hand) {
             if (c.getSuit() != suit) {
@@ -93,7 +93,7 @@ public class SuperPoker {
         return true;
     }
 
-    public static Boolean isStraight(ArrayList<Card> hand){
+    public static boolean isStraight(ArrayList<Card> hand){
         int firstNum = hand.get(0).getNumber();
         for (Card c : hand) {
             int nextNum = firstNum++;
@@ -105,7 +105,7 @@ public class SuperPoker {
         return true;
     }
 
-    public  static Boolean isThreeKind(ArrayList<Card> hand){
+    public  static boolean isThreeKind(ArrayList<Card> hand){
         int first = hand.get(0).getNumber();
         int second = hand.get(1).getNumber();
         int third = hand.get(2).getNumber();
@@ -122,7 +122,7 @@ public class SuperPoker {
         }
     }
 
-    public static Boolean isTwoPair(ArrayList<Card> hand){
+    public static boolean isTwoPair(ArrayList<Card> hand) {
         int first = hand.get(0).getNumber();
         int second = hand.get(1).getNumber();
         int third = hand.get(2).getNumber();
@@ -147,7 +147,7 @@ public class SuperPoker {
         }
     }
 
-    public static Boolean isPair(ArrayList<Card> hand){
+    public static boolean isPair(ArrayList<Card> hand) {
         int first = hand.get(0).getNumber();
         int second = hand.get(1).getNumber();
         int third = hand.get(2).getNumber();
@@ -166,30 +166,30 @@ public class SuperPoker {
         }
     }
 
-    public static Boolean isHighCard(ArrayList<Card> hand){
+    public static boolean isHighCard(ArrayList<Card> hand) {
         return true;
     }
 
-    public static int findRank(ArrayList<Card> hand){
-        if(isRoyalFlush(hand)){
+    public static int findRank(ArrayList<Card> hand) {
+        if (isRoyalFlush(hand)) {
             return 1;
-        }else if(isStraightFlush(hand)){
+        } else if(isStraightFlush(hand)) {
             return 2;
-        }else if(isFourKind(hand)){
+        } else if(isFourKind(hand)) {
             return 3;
-        }else if(isFullHouse(hand)){
+        } else if(isFullHouse(hand)) {
             return 4;
-        }else if(isFlush(hand)){
+        } else if(isFlush(hand)) {
             return 5;
-        }else if(isStraight(hand)){
+        } else if(isStraight(hand)) {
             return 6;
-        }else if(isThreeKind(hand)){
+        } else if(isThreeKind(hand)) {
             return 7;
-        }else if(isTwoPair(hand)){
+        } else if(isTwoPair(hand)) {
             return 8;
-        }else if(isPair(hand)){
+        } else if(isPair(hand)) {
             return 9;
-        }else if(isHighCard(hand)){
+        } else if(isHighCard(hand)) {
             return 10;
         }
 
@@ -199,7 +199,7 @@ public class SuperPoker {
     /**
      * Main method creates SuperPoker instance and prints result
      */
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         int numHands = scanner.nextInt();
