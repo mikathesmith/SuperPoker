@@ -5,7 +5,7 @@
 /**
  * A data structure which represents a single card and holds its number and suit.
  */
-public class Card {
+public class Card implements Comparable<Card> {
     private final int number;
     private final char suit;
 
@@ -65,10 +65,14 @@ public class Card {
 
     /**
      * Compares {@code this} Card with {@code other}. Note that
-     * in Texas Hold'em there is no ordering of the suit
+     * in Texas Hold'em there is no ordering of the suit, so
+     * this method should not be used for comparing high-card
      */
     public int compareTo(Card other) {
-        return getWeight() - other.getWeight();
+        int difference = getWeight() - other.getWeight();
+        return difference == 0
+            ? Character.compare(suit, other.suit)
+            : difference;
     }
 
     private String getNumberRepresentation() {
