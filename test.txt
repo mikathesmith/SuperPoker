@@ -3,5 +3,6 @@ AC 4d
 1S 9s
 Kh 13d
 5d 6d
+AC 2C 3C 4C 5C
 JC QC KC AC 10D
 KC 8s 7S 4H 4c
