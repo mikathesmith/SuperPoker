@@ -13,8 +13,7 @@ public class SuperPoker {
     public static HashMap<Integer, String> ranks = new HashMap<Integer, String>();
 
     public SuperPoker(ArrayList<ArrayList<Card>> hands, ArrayList<Card> house) {
-        hands.stream()
-            .forEach((hand) -> Collections.sort(hand));
+        hands.forEach((hand) -> Collections.sort(hand));
         this.hands = hands;
 
         Collections.sort(house);
