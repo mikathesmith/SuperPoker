@@ -55,10 +55,17 @@ public class SuperPoker {
     }
 
     public static boolean isFullHouse(ArrayList<Card> hand) {
-        // TODO: This needs additional logic because 3 of a kind already is a pair
-        // For Full House, we need to check that the make up of three-of-a-kind
-        // and the pair are different values
-        return isThreeKind(hand) && isPair(hand);
+        int first = hand.get(0).getNumber();
+        int second = hand.get(1).getNumber();
+        int third = hand.get(2).getNumber();
+        int fourth = hand.get(3).getNumber();
+        int fifth = hand.get(4).getNumber();
+
+        if (first == second && second == third && fourth == fifth) return true;
+        if (second == third && third == fourth && first == fifth) return true;
+        if (third == fourth && fourth == fifth && first == second) return true;
+
+        return false;
     }
 
     public static boolean isFlush(ArrayList<Card> hand) {
