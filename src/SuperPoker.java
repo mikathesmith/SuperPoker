@@ -162,16 +162,29 @@ public class SuperPoker {
         return 0;
     }
 
-    public static int[] getComparison(List<Card> hand) {
+    private static List<Integer> getHighCardWeights(List<Card> cards) {
+        List<Card> reversed = new ArrayList<>();
+        reversed.addAll(cards);
+        Collections.reverse(reversed);
+
+        return reversed.stream()
+            .map((Card c) -> c.getWeight())
+            .collect(Collectors.toList());
+    }
+
+    private static List<Integer> getComparison(List<Card> hand) {
+        List<Integer> result = new ArrayList<>();
         if (isRoyalFlush(hand)) {
-            int[] royalFlush = {10};
-            return royalFlush;
+            result.add(10);
+            return result;
         }
 
         // Stuff
 
-        int[] highCard = {1};
-        return highCard;
+        // Otherwise, we have just a high card
+        result.add(1);
+        result.addAll(getHighCardWeights(hand));
+        return result;
     }
 
     /**
