@@ -60,9 +60,6 @@ public class SuperPoker {
 
             System.out.println(player + ": " + stringifyHand(playerHand.getHand()) + " - " + Rank.getRank(getComparison(playerHand.getHand()).get(0)));
         }
-
-        // List<Card> bestHand = bestHands.get(bestHands.size() - 1);
-        // System.out.println(stringifyHand(bestHand) + " wins with " + Rank.getRank(getComparison(bestHand).get(0)));
     }
 
     /**
