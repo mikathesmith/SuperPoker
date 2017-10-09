@@ -199,6 +199,10 @@ public class SuperPoker {
             result.add(6);
             int highCard = hand.get(4).getWeight();
             result.add(highCard);
+            result.add(hand.get(3).getWeight());
+            result.add(hand.get(2).getWeight());
+            result.add(hand.get(1).getWeight());
+            result.add(hand.get(0).getWeight());
             return result;
         }
 
