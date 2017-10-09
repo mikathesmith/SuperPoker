@@ -94,7 +94,7 @@ public class SuperPoker {
             })
             .collect(Collectors.toList());
 
-        Collections.sort(bestHands, (PlayerHand ph1, PlayerHand ph2) -> new CompareHands().compare(ph2.getHand(), ph1.getHand()));
+        Collections.sort(bestHands, (PlayerHand ph1, PlayerHand ph2) -> new CompareHands().compare(ph1.getHand(), ph2.getHand()));
 
         for (PlayerHand playerHand : bestHands) {
             String player = "Player " + playerHand.getIndex();
