@@ -47,20 +47,19 @@ public class SuperPoker {
                     Collections.sort(hand);
                 }
                 Collections.sort(allHands, new CompareHands());
-                System.out.println(allHands);
 
                 return allHands.get(allHands.size() - 1);
             })
             .collect(Collectors.toList());
 
-        for (List<Card> hand : bestHands) {
-            System.out.println(stringifyHand(hand));
-        }
-
         Collections.sort(bestHands, new CompareHands());
 
-        List<Card> bestHand = bestHands.get(bestHands.size() - 1);
-        System.out.println(stringifyHand(bestHand) + " wins with " + Rank.getRank(getComparison(bestHand).get(0)));
+        for (List<Card> hand : bestHands) {
+            System.out.println(stringifyHand(hand) + " - " + Rank.getRank(getComparison(hand).get(0)));
+        }
+
+        // List<Card> bestHand = bestHands.get(bestHands.size() - 1);
+        // System.out.println(stringifyHand(bestHand) + " wins with " + Rank.getRank(getComparison(bestHand).get(0)));
     }
 
     /**
