@@ -173,16 +173,31 @@ public class SuperPoker {
     }
 
     private static List<Integer> getComparison(List<Card> hand) {
+        int numbers[] = hand.stream()
+            .mapToInt((Card c) -> c.getNumber())
+            .toArray();
         List<Integer> result = new ArrayList<>();
         if (isRoyalFlush(hand)) {
-            result.add(10);
+            result.add(Rank.ROYAL_FLUSH.getWeight());
             return result;
         }
 
         // Stuff
 
+        // Full house
+        if ((numbers[0] == numbers[1] && numbers[0] == numbers[2] && numbers[3] == numbers[4])) {
+            result.add(Rank.FULL_HOUSE.getWeight());
+            result.add(numbers[0]);
+            return result;
+        }
+        if (numbers[2] == numbers[3] && numbers[2] == numbers[4] && numbers[0] == numbers[1]) {
+            result.add(Rank.FULL_HOUSE.getWeight());
+            result.add(numbers[2]);
+        }
+        // End full house
+
         // Otherwise, we have just a high card
-        result.add(1);
+        result.add(Rank.HIGH_CARD.getWeight());
         result.addAll(getHighCardWeights(hand));
         return result;
     }
