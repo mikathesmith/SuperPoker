@@ -38,9 +38,11 @@ public class SuperPoker {
             case ROYAL_FLUSH:
                 break;
             case STRAIGHT_FLUSH:
+            case STRAIGHT:
+                // STUFF
+                break;
             case FOUR_OF_A_KIND:
             case FLUSH:
-            case STRAIGHT:
             case THREE_OF_A_KIND:
             case PAIR:
             case HIGH_CARD:
