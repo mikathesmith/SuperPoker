@@ -9,6 +9,7 @@ import java.util.stream.*;
 public class SuperPoker {
     private ArrayList<ArrayList<Card>> hands = new ArrayList<>();
     private ArrayList<Card> house = new ArrayList<>();
+    private HashMap<List<Card>, String> players = new HashMap<List<Card>, String>();
 
     public SuperPoker(ArrayList<ArrayList<Card>> hands, ArrayList<Card> house) {
         hands.forEach((hand) -> Collections.sort(hand));
@@ -52,10 +53,15 @@ public class SuperPoker {
             })
             .collect(Collectors.toList());
 
+        for (int i = 0; i < bestHands.size(); i++) {
+            players.put(bestHands.get(i), "Player " + (i+1));
+        }
+
         Collections.sort(bestHands, new CompareHands());
 
         for (List<Card> hand : bestHands) {
-            System.out.println(stringifyHand(hand) + " - " + Rank.getRank(getComparison(hand).get(0)));
+            String player = players.get(hand);
+            System.out.println(player + ": " + stringifyHand(hand) + " - " + Rank.getRank(getComparison(hand).get(0)));
         }
 
         // List<Card> bestHand = bestHands.get(bestHands.size() - 1);
