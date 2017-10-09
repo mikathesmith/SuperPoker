@@ -179,7 +179,44 @@ public class SuperPoker {
             return result;
         }
 
-        // Stuff
+        if (isStraightFlush(hand)) {
+            result.add(9);
+            int highCard = hand.get(4).getWeight();
+            if (highCard != 14) {
+                result.add(highCard);
+            } else {
+                int firstCard = hand.get(0).getWeight();
+                if (firstCard == 2) {
+                    result.add(5);
+                } else {
+                    result.add(highCard);
+                }
+            }
+            return result;
+        }
+
+        if (isFlush(hand)) {
+            result.add(6);
+            int highCard = hand.get(4).getWeight();
+            result.add(highCard);
+            return result;
+        }
+
+        if (isStraight(hand)) {
+            result.add(5);
+            if (highCard != 14) {
+                result.add(highCard);
+            } else {
+                int firstCard = hand.get(0).getWeight();
+                if (firstCard == 2) {
+                    result.add(5);
+                } else {
+                    result.add(highCard);
+                }
+            }
+            return result;
+        }
+            
 
         // Otherwise, we have just a high card
         result.add(1);
