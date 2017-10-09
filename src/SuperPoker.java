@@ -177,11 +177,15 @@ public class SuperPoker {
             .mapToInt((Card c) -> c.getNumber())
             .toArray();
         List<Integer> result = new ArrayList<>();
+
+        // Royal Flush
         if (isRoyalFlush(hand)) {
             result.add(Rank.ROYAL_FLUSH.getWeight());
             return result;
         }
+        // End Royal Flush
 
+        // Straight Flush
         if (isStraightFlush(hand)) {
             result.add(Rank.STRAIGHT_FLUSH.getWeight());
             int highCard = hand.get(4).getWeight();
@@ -197,6 +201,22 @@ public class SuperPoker {
             }
             return result;
         }
+        // End Straight Flush
+
+        // Four of a Kind
+        if (numbers[0] == numbers[1] && numbers[1] == numbers[2] && numbers[2] == numbers[3]) {
+            result.add(Rank.FOUR_OF_A_KIND.getWeight());
+            result.add(hand.get(0).getWeight());
+            result.add(hand.get(4).getWeight());
+            return result;
+        }
+        if (numbers[1] == numbers[2] && numbers[2] == numbers[3] && numbers[3] == numbers[4]) {
+            result.add(Rank.FOUR_OF_A_KIND.getWeight());
+            result.add(hand.get(1).getWeight());
+            result.add(hand.get(0).getWeight());
+            return result;
+        }
+        // End Four of a Kind
 
         // Full house
         if ((numbers[0] == numbers[1] && numbers[0] == numbers[2] && numbers[3] == numbers[4])) {
@@ -210,12 +230,15 @@ public class SuperPoker {
         }
         // End full house
 
+        // Flush
         if (isFlush(hand)) {
             result.add(Rank.FLUSH.getWeight());
             result.addAll(getHighCardWeights(hand));
             return result;
         }
+        // Flush
 
+        // Straight
         if (isStraight(hand)) {
             result.add(Rank.STRAIGHT.getWeight());
             if (hand.get(hand.size() - 1).getNumber() != 1) {
@@ -230,6 +253,58 @@ public class SuperPoker {
             }
             return result;
         }
+        // End Straight
+
+        // Three of a Kind
+        if (numbers[0] == numbers[1] && numbers[0] == numbers[2]) {
+            result.add(Rank.THREE_OF_A_KIND.getWeight());
+            result.add(hand.get(0).getWeight());
+            result.add(hand.get(4).getWeight());
+            result.add(hand.get(3).getWeight());
+            return result;
+        }
+
+        if (numbers[1] == numbers[2] && numbers[1] == numbers[3]) {
+            result.add(Rank.THREE_OF_A_KIND.getWeight());
+            result.add(hand.get(1).getWeight());
+            result.add(hand.get(4).getWeight());
+            result.add(hand.get(0).getWeight());
+            return result;
+        }
+
+        if (numbers[2] == numbers[3] && numbers[2] == numbers[4]) {
+            result.add(Rank.THREE_OF_A_KIND.getWeight());
+            result.add(hand.get(2).getWeight());
+            result.add(hand.get(1).getWeight());
+            result.add(hand.get(0).getWeight());
+            return result;
+        }
+        // End Three of a Kind
+
+        // Two Pair
+        if (numbers[0] == numbers[1]) {
+            if (numbers[2] == numbers[3]) {
+                result.add(Rank.TWO_PAIR.getWeight());
+                result.add(hand.get(2).getWeight());
+                result.add(hand.get(0).getWeight());
+                result.add(hand.get(4).getWeight());
+                return result;
+            }
+            if (numbers[3] == numbers[4]) {
+                result.add(Rank.TWO_PAIR.getWeight());
+                result.add(hand.get(3).getWeight());
+                result.add(hand.get(0).getWeight());
+                result.add(hand.get(2).getWeight());
+                return result;
+            }
+        } else if (numbers[1] == numbers[2] && numbers[3] == numbers[4]) {
+            result.add(Rank.TWO_PAIR.getWeight());
+            result.add(hand.get(1).getWeight());
+            result.add(hand.get(3).getWeight());
+            result.add(hand.get(0).getWeight());
+            return result;
+        }
+        // End Two Pair
 
         // Otherwise, we have just a high card
         result.add(Rank.HIGH_CARD.getWeight());
