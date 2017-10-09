@@ -21,16 +21,27 @@ public class SuperPoker {
     }
 
     public void printResult() {
-        for (List<Card> h : hands) {
-            List<Card> all = new ArrayList<>();
-            all.addAll(h);
-            all.addAll(house);
-            for (List<Card> hand : new Combinations<Card>(all).choose(5)) {
-                System.out.println("Dealt Hand: " + h + ", hand: " + hand);
-            }
-        }
-        System.out.println("Hands: " + hands);
-        System.out.println("House: " + house);
+        // List<List<Card>> sortedHands = new ArrayList<>();
+        // for (List<Card> hand : hands) {
+        //     List<Card> tmp = new ArrayList<>();
+        //     tmp.addAll(hand);
+        //     sortedHands.add(tmp);
+        // }
+        // Collections.sort(sortedHands, new CompareHands());
+
+        List<List<Card>> bestHands = hands.stream()
+            .map((List<Card> handOfTwo) -> {
+                List<Card> allCards = new ArrayList<>();
+                allCards.addAll(house);
+                allCards.addAll(handOfTwo);
+                List<List<Card>> allHands = new Combinations<Card>(allCards).choose(5);
+                Collections.sort(allHands, new CompareHands());
+
+                return allHands.get(allHands.size() - 1);
+            })
+            .collect(Collectors.toList());
+
+        System.out.println(bestHands);
     }
 
     private static boolean isRoyalFlush(List<Card> hand) {
@@ -221,14 +232,6 @@ public class SuperPoker {
         return result;
     }
 
-    public static int compareHands(List<Integer> hand1, List<Integer> hand2) {
-        for (int i = 0; i < hand1.size(); i++) {
-            if (hand1.get(i) > hand2.get(i)) return 1;
-            if (hand1.get(i) < hand2.get(i)) return -1;
-        }
-        return 0;
-    }
-
     /**
      * Main method creates SuperPoker instance and prints result
      */
@@ -253,5 +256,20 @@ public class SuperPoker {
         scanner.close();
 
         new SuperPoker(hands, house).printResult();
+    }
+
+    class CompareHands implements Comparator<List<Card>> {
+        public int compare(List<Card> hand1, List<Card> hand2) {
+            List<Integer> cmp1 = getComparison(hand1);
+            List<Integer> cmp2 = getComparison(hand2);
+
+            for (int i = 0; i < cmp1.size(); i++) {
+                int cmp = cmp1.get(i) - cmp2.get(i);
+                if (cmp > 0) return 1;
+                if (cmp < 0) return -1;
+            }
+
+            return 0;
+        }
     }
 }
