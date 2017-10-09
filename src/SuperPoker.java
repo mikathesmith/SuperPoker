@@ -36,8 +36,13 @@ public class SuperPoker {
 
         switch (rank) {
             case ROYAL_FLUSH:
+                result.append(" (10 - A of suit " + hand.get(0).getSuit() + ")");
                 break;
             case STRAIGHT_FLUSH:
+                int last = cmp.get(1);
+                int first = last - 4;
+                result.append(" (" + first + " - " + last + " of suit " + hand.get(0).getSuit() + ")");
+                break;
             case STRAIGHT:
                 int lastNum = cmp.get(1);
                 int firstNum = lastNum - 4;
@@ -47,6 +52,7 @@ public class SuperPoker {
                 result.append(" (" + Card.getNumberRepresentation(cmp.get(1)) + ")");
                 break;
             case FLUSH:
+                result.append(" (suit: " + hand.get(0).getSuit() + ")");
                 break;
             case THREE_OF_A_KIND:
                 result.append(" (" + Card.getNumberRepresentation(cmp.get(1)) + ")");
