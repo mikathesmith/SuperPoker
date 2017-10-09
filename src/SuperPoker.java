@@ -1,7 +1,6 @@
 /**
  * Etude 13: Super Sized Poker Hands
  * @author Kimberley Louw, Matthew Boyes, Mika Smith
- *
  */
 
 import java.util.*;

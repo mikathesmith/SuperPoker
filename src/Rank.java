@@ -1,3 +1,11 @@
+/**
+ * Etude 13: Super Sized Poker Hands
+ * @author Kimberley Louw, Matthew Boyes, Mika Smith
+ */
+
+/**
+ * Enumeration of Ranks
+ */
 public enum Rank {
     ROYAL_FLUSH(10, "Royal Flush"),
     STRAIGHT_FLUSH(9, "Straight Flush"),
