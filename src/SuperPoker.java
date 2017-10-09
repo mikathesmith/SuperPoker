@@ -162,6 +162,19 @@ public class SuperPoker {
         return 0;
     }
 
+    public static int[] getComparison(List<Card> hand) {
+        if (isRoyalFlush(hand)) {
+            int[] royalFlush = {1};
+            return royalFlush;
+        }
+
+        // Stuff
+
+        int highestCard = hand.get(hand.size() - 1).getWeight();
+        int[] highCard = {highestCard};
+        return highCard;
+    }
+
     /**
      * Main method creates SuperPoker instance and prints result
      */

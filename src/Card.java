@@ -58,7 +58,7 @@ public class Card implements Comparable<Card> {
         return number == other.number && suit == other.suit;
     }
 
-    private int getWeight() {
+    public int getWeight() {
         if (number == 1) return 14;
         return number;
     }
