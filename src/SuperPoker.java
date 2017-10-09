@@ -228,6 +228,19 @@ public class SuperPoker {
         return result;
     }
 
+    public static int compareHands(ArrayList<Integer> hand1, ArrayList<Integer> hand2) {
+        for (int i = 0; i < 5; i++) {
+            if (hand1.get(i) > hand2.get(i)) {
+                return 1;
+            } else if (hand1.get(i) < hand2.get(i)) {
+                return -1;
+            } else {
+                continue;
+            }
+        }
+        return 0;
+    }
+
     /**
      * Main method creates SuperPoker instance and prints result
      */
