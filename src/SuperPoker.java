@@ -10,7 +10,6 @@ import java.util.stream.*;
 public class SuperPoker {
     private ArrayList<ArrayList<Card>> hands = new ArrayList<>();
     private ArrayList<Card> house = new ArrayList<>();
-    public static HashMap<Integer, String> ranks = new HashMap<Integer, String>();
 
     public SuperPoker(ArrayList<ArrayList<Card>> hands, ArrayList<Card> house) {
         hands.forEach((hand) -> Collections.sort(hand));
@@ -20,6 +19,23 @@ public class SuperPoker {
         this.house = house;
     }
 
+    /**
+     * Utility method to stringify a {@code hand} of cards
+     * @param hand List of Cards
+     * @return Stringified representation of {@code hand}
+     */
+    public String stringifyHand(List<Card> hand) {
+        StringBuilder result = new StringBuilder();
+        result.append(hand.get(0));
+        for (int i = 1; i < hand.size(); i++) {
+            result.append(" " + hand.get(i));
+        }
+        return result.toString();
+    }
+
+    /**
+     * Prints the final result according to output specifications
+     */
     public void printResult() {
         List<List<Card>> bestHands = hands.stream()
             .map((List<Card> handOfTwo) -> {
@@ -32,14 +48,27 @@ public class SuperPoker {
                     Collections.sort(hand);
                 }
                 Collections.sort(allHands, new CompareHands());
+                System.out.println(allHands);
 
                 return allHands.get(allHands.size() - 1);
             })
             .collect(Collectors.toList());
 
-        System.out.println(bestHands);
+        for (List<Card> hand : bestHands) {
+            System.out.println(stringifyHand(hand));
+        }
+
+        Collections.sort(bestHands, new CompareHands());
+
+        List<Card> bestHand = bestHands.get(bestHands.size() - 1);
+        System.out.println(stringifyHand(bestHand) + " wins with " + Rank.getRank(getComparison(bestHand).get(0)));
     }
 
+    /**
+     * Returns true if {@code hand} is a Royal Flush
+     * @param hand List of Cards
+     * @return Boolean
+     */
     private static boolean isRoyalFlush(List<Card> hand) {
         if (hand.get(0).getNumber() != 10) return false;
         if (hand.get(1).getNumber() != 11) return false;
@@ -50,10 +79,20 @@ public class SuperPoker {
         return isFlush(hand);
     }
 
+    /**
+     * Returns true if the hand contains a straight flush
+     * @param hand List of Cards
+     * @return Boolean
+     */
     private static boolean isStraightFlush(List<Card> hand) {
         return isFlush(hand) && isStraight(hand);
     }
 
+    /**
+     * Returns {@code true} if {@code hand} is made of cards all of the same suit
+     * @param hand List of Cards
+     * @return Boolean
+     */
     private static boolean isFlush(List<Card> hand) {
         Character suit = hand.get(0).getSuit();
         for (Card c : hand) {
@@ -64,6 +103,11 @@ public class SuperPoker {
         return true;
     }
 
+    /**
+     * Returns {@code true} if {@code hand} consists of only consecutive cards
+     * @param hand List of Cards
+     * @return Boolean
+     */
     private static boolean isStraight(List<Card> hand) {
         Card first = hand.get(0);
         Card previous = first;
@@ -78,6 +122,11 @@ public class SuperPoker {
         return true;
     }
 
+    /**
+     * Returns a list of card weights in reverse order
+     * @param cards List of Cards
+     * @return List of Integers
+     */
     private static List<Integer> getHighCardWeights(List<Card> cards) {
         List<Card> reversed = new ArrayList<>();
         reversed.addAll(cards);
@@ -88,6 +137,11 @@ public class SuperPoker {
             .collect(Collectors.toList());
     }
 
+    /**
+     * Gets a List of Integers useful for comparing hands
+     * @param hand List of Cards
+     * @return List of Integers
+     */
     private static List<Integer> getComparison(List<Card> hand) {
         int numbers[] = hand.stream()
             .mapToInt((Card c) -> c.getNumber())
@@ -138,11 +192,13 @@ public class SuperPoker {
         if ((numbers[0] == numbers[1] && numbers[0] == numbers[2] && numbers[3] == numbers[4])) {
             result.add(Rank.FULL_HOUSE.getWeight());
             result.add(numbers[0]);
+            result.add(numbers[3]);
             return result;
         }
         if (numbers[2] == numbers[3] && numbers[2] == numbers[4] && numbers[0] == numbers[1]) {
             result.add(Rank.FULL_HOUSE.getWeight());
             result.add(numbers[2]);
+            result.add(numbers[0]);
         }
         // End full house
 
@@ -263,9 +319,9 @@ public class SuperPoker {
         return result;
     }
 
-    /**
-     * Main method creates SuperPoker instance and prints result
-     */
+    // /**
+    //  * Main method creates SuperPoker instance, reads in data from {@code System.in} and prints result
+    //  */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -289,6 +345,9 @@ public class SuperPoker {
         new SuperPoker(hands, house).printResult();
     }
 
+    /**
+     * Comparator for comparing hands of Cards
+     */
     class CompareHands implements Comparator<List<Card>> {
         public int compare(List<Card> hand1, List<Card> hand2) {
             List<Integer> cmp1 = getComparison(hand1);

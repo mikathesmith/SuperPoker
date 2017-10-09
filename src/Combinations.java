@@ -13,6 +13,7 @@ public class Combinations<T> {
 
     /**
      * Creates a new Combinations source
+     * @param source List
      */
     public Combinations(List<T> source) {
         this.source.addAll(source);
@@ -20,6 +21,8 @@ public class Combinations<T> {
 
     /**
      * Returns a List of Combinations of the source list Choose k
+     * @param k k as in n Choose k (Mathematics)
+     * @return List of Lists
      */
     public List<List<T>> choose(int k) {
         List<List<T>> result = new ArrayList<>();

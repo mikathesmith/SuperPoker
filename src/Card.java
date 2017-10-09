@@ -9,11 +9,21 @@ public class Card implements Comparable<Card> {
     private final int number;
     private final char suit;
 
+    /**
+     * Creates a new Card instance from a number and suit
+     * @param number Card number
+     * @param suit Suit character
+     */
     public Card(int number, char suit) {
         this.number = number;
         this.suit = suit;
     }
 
+    /**
+     * Creates a card from a String in the input format specified
+     * @param raw String
+     * @return Card
+     */
     public static Card fromRaw(String raw) {
         String tmp = raw.toUpperCase();
 
@@ -67,6 +77,8 @@ public class Card implements Comparable<Card> {
      * Compares {@code this} Card with {@code other}. Note that
      * in Texas Hold'em there is no ordering of the suit, so
      * this method should not be used for comparing high-card
+     * @param other Other Card
+     * @return Comparator int
      */
     public int compareTo(Card other) {
         int difference = getWeight() - other.getWeight();
@@ -75,6 +87,10 @@ public class Card implements Comparable<Card> {
             : difference;
     }
 
+    /**
+     * Gets the string representation of the numeric portion of the card
+     * @return String
+     */
     private String getNumberRepresentation() {
         switch (number) {
             case 1:
