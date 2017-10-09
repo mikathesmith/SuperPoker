@@ -5,7 +5,7 @@
  */
 
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.stream.*;
 
 public class SuperPoker {
     private ArrayList<ArrayList<Card>> hands = new ArrayList<>();
@@ -164,14 +164,13 @@ public class SuperPoker {
 
     public static int[] getComparison(List<Card> hand) {
         if (isRoyalFlush(hand)) {
-            int[] royalFlush = {1};
+            int[] royalFlush = {10};
             return royalFlush;
         }
 
         // Stuff
 
-        int highestCard = hand.get(hand.size() - 1).getWeight();
-        int[] highCard = {highestCard};
+        int[] highCard = {1};
         return highCard;
     }
 
