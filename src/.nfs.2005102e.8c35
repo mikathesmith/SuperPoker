@@ -36,9 +36,8 @@ public class SuperPoker {
      * Prints the final result according to output specifications
      */
     public void printResult() {
-        List<PlayerHand> bestHands = IntStream.range(0, hands.size())
-            .mapToObj((int i) -> {
-                List<Card> handOfTwo = hands.get(i);
+        List<List<Card>> bestHands = hands.stream()
+            .map((List<Card> handOfTwo) -> {
                 List<Card> allCards = new ArrayList<>();
                 allCards.addAll(house);
                 allCards.addAll(handOfTwo);
@@ -49,16 +48,14 @@ public class SuperPoker {
                 }
                 Collections.sort(allHands, new CompareHands());
 
-                return new PlayerHand(i + 1, allHands.get(allHands.size() - 1));
+                return allHands.get(allHands.size() - 1);
             })
             .collect(Collectors.toList());
 
-        Collections.sort(bestHands, (PlayerHand ph1, PlayerHand ph2) -> new CompareHands().compare(ph1.getHand(), ph2.getHand()));
+        Collections.sort(bestHands, new CompareHands());
 
-        for (PlayerHand playerHand : bestHands) {
-            String player = "Player " + playerHand.getIndex();
-
-            System.out.println(player + ": " + stringifyHand(playerHand.getHand()) + " - " + Rank.getRank(getComparison(playerHand.getHand()).get(0)));
+        for (List<Card> hand : bestHands) {
+            System.out.println(stringifyHand(hand) + " - " + Rank.getRank(getComparison(hand).get(0)));
         }
 
         // List<Card> bestHand = bestHands.get(bestHands.size() - 1);
@@ -344,24 +341,6 @@ public class SuperPoker {
         scanner.close();
 
         new SuperPoker(hands, house).printResult();
-    }
-
-    class PlayerHand {
-        private int index;
-        private List<Card> hand = new ArrayList<>();
-
-        public PlayerHand(int index, List<Card> hand) {
-            this.index = index;
-            this.hand = hand;
-        }
-
-        public int getIndex() {
-            return index;
-        }
-
-        public List<Card> getHand() {
-            return hand;
-        }
     }
 
     /**
