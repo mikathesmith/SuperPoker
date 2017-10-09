@@ -173,14 +173,17 @@ public class SuperPoker {
     }
 
     private static List<Integer> getComparison(List<Card> hand) {
+        int numbers[] = hand.stream()
+            .mapToInt((Card c) -> c.getNumber())
+            .toArray();
         List<Integer> result = new ArrayList<>();
         if (isRoyalFlush(hand)) {
-            result.add(10);
+            result.add(Rank.ROYAL_FLUSH.getWeight());
             return result;
         }
 
         if (isStraightFlush(hand)) {
-            result.add(9);
+            result.add(Rank.STRAIGHT_FLUSH.getWeight());
             int highCard = hand.get(4).getWeight();
             if (highCard != 14) {
                 result.add(highCard);
@@ -195,35 +198,41 @@ public class SuperPoker {
             return result;
         }
 
+        // Full house
+        if ((numbers[0] == numbers[1] && numbers[0] == numbers[2] && numbers[3] == numbers[4])) {
+            result.add(Rank.FULL_HOUSE.getWeight());
+            result.add(numbers[0]);
+            return result;
+        }
+        if (numbers[2] == numbers[3] && numbers[2] == numbers[4] && numbers[0] == numbers[1]) {
+            result.add(Rank.FULL_HOUSE.getWeight());
+            result.add(numbers[2]);
+        }
+        // End full house
+
         if (isFlush(hand)) {
-            result.add(6);
-            int highCard = hand.get(4).getWeight();
-            result.add(highCard);
-            result.add(hand.get(3).getWeight());
-            result.add(hand.get(2).getWeight());
-            result.add(hand.get(1).getWeight());
-            result.add(hand.get(0).getWeight());
+            result.add(Rank.FLUSH.getWeight());
+            result.addAll(getHighCardWeights(hand));
             return result;
         }
 
         if (isStraight(hand)) {
-            result.add(5);
-            if (highCard != 14) {
-                result.add(highCard);
+            result.add(Rank.STRAIGHT.getWeight());
+            if (hand.get(hand.size() - 1).getNumber() != 1) {
+                result.add(hand.get(hand.size() - 1).getWeight());
             } else {
                 int firstCard = hand.get(0).getWeight();
                 if (firstCard == 2) {
                     result.add(5);
                 } else {
-                    result.add(highCard);
+                    result.add(hand.get(hand.size() - 1).getWeight());
                 }
             }
             return result;
         }
-            
 
         // Otherwise, we have just a high card
-        result.add(1);
+        result.add(Rank.HIGH_CARD.getWeight());
         result.addAll(getHighCardWeights(hand));
         return result;
     }
