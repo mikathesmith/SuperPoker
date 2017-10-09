@@ -91,9 +91,10 @@ public class Card implements Comparable<Card> {
      * Gets the string representation of the numeric portion of the card
      * @return String
      */
-    private String getNumberRepresentation() {
+    public static String getNumberRepresentation(int number) {
         switch (number) {
             case 1:
+            case 14:
                 return "A";
             case 11:
                 return "J";
@@ -107,6 +108,6 @@ public class Card implements Comparable<Card> {
     }
 
     public String toString() {
-        return getNumberRepresentation() + suit;
+        return getNumberRepresentation(number) + suit;
     }
 }

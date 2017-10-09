@@ -29,6 +29,28 @@ public class SuperPoker {
         for (int i = 1; i < hand.size(); i++) {
             result.append(" " + hand.get(i));
         }
+        result.append(" - ");
+        List<Integer> cmp = getComparison(hand);
+        Rank rank = Rank.getRank(cmp.get(0));
+        result.append(rank);
+
+        switch (rank) {
+            case ROYAL_FLUSH:
+                break;
+            case STRAIGHT_FLUSH:
+            case FOUR_OF_A_KIND:
+            case FLUSH:
+            case STRAIGHT:
+            case THREE_OF_A_KIND:
+            case PAIR:
+            case HIGH_CARD:
+                result.append(" (" + Card.getNumberRepresentation(cmp.get(1)) + ")");
+                break;
+            case FULL_HOUSE:
+            case TWO_PAIR:
+                result.append(" (" + Card.getNumberRepresentation(cmp.get(1)) + ", " + Card.getNumberRepresentation(cmp.get(2)) + ")");
+                break;
+        }
         return result.toString();
     }
 
@@ -53,12 +75,12 @@ public class SuperPoker {
             })
             .collect(Collectors.toList());
 
-        Collections.sort(bestHands, (PlayerHand ph1, PlayerHand ph2) -> new CompareHands().compare(ph1.getHand(), ph2.getHand()));
+        Collections.sort(bestHands, (PlayerHand ph1, PlayerHand ph2) -> new CompareHands().compare(ph2.getHand(), ph1.getHand()));
 
         for (PlayerHand playerHand : bestHands) {
             String player = "Player " + playerHand.getIndex();
 
-            System.out.println(player + ": " + stringifyHand(playerHand.getHand()) + " - " + Rank.getRank(getComparison(playerHand.getHand()).get(0)));
+            System.out.println(player + ": " + stringifyHand(playerHand.getHand()));
         }
     }
 
