@@ -39,16 +39,27 @@ public class SuperPoker {
                 break;
             case STRAIGHT_FLUSH:
             case STRAIGHT:
-                // STUFF
+                int lastNum = cmp.get(1);
+                int firstNum = lastNum - 4;
+                result.append(" (" + firstNum + " - " + lastNum + ")");
                 break;
             case FOUR_OF_A_KIND:
+                result.append(" (" + Card.getNumberRepresentation(cmp.get(1)) + ")");
+                break;
             case FLUSH:
+                break;
             case THREE_OF_A_KIND:
+                result.append(" (" + Card.getNumberRepresentation(cmp.get(1)) + ")");
+                break;
             case PAIR:
+                result.append(" (" + Card.getNumberRepresentation(cmp.get(1)) + ")");
+                break;
             case HIGH_CARD:
                 result.append(" (" + Card.getNumberRepresentation(cmp.get(1)) + ")");
                 break;
             case FULL_HOUSE:
+                result.append(" (" + Card.getNumberRepresentation(cmp.get(1)) + ", " + Card.getNumberRepresentation(cmp.get(2)) + ")");
+                break;
             case TWO_PAIR:
                 result.append(" (" + Card.getNumberRepresentation(cmp.get(1)) + ", " + Card.getNumberRepresentation(cmp.get(2)) + ")");
                 break;
