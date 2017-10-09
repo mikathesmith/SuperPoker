@@ -26,15 +26,14 @@ public class SuperPoker {
             all.addAll(h);
             all.addAll(house);
             for (List<Card> hand : new Combinations<Card>(all).choose(5)) {
-                System.out.println("Dealt Hand: " + h + ", hand: " + hand + "(" + findRank(hand) + ")");
+                System.out.println("Dealt Hand: " + h + ", hand: " + hand);
             }
         }
         System.out.println("Hands: " + hands);
         System.out.println("House: " + house);
-        System.out.println("Rank: " + findRank(house));
     }
 
-    public static boolean isRoyalFlush(List<Card> hand) {
+    private static boolean isRoyalFlush(List<Card> hand) {
         if (hand.get(0).getNumber() != 10) return false;
         if (hand.get(1).getNumber() != 11) return false;
         if (hand.get(2).getNumber() != 12) return false;
@@ -44,38 +43,11 @@ public class SuperPoker {
         return isFlush(hand);
     }
 
-    public static boolean isStraightFlush(List<Card> hand) {
+    private static boolean isStraightFlush(List<Card> hand) {
         return isFlush(hand) && isStraight(hand);
     }
 
-    public static boolean isFourKind(List<Card> hand) {
-        int first = hand.get(0).getNumber();
-        int second = hand.get(1).getNumber();
-        int third = hand.get(2).getNumber();
-        int fourth = hand.get(3).getNumber();
-        int fifth = hand.get(4).getNumber();
-
-        if (first == second && second == third && third == fourth) return true;
-        if (second == third && third == fourth && fourth == fifth) return true;
-
-        return false;
-    }
-
-    public static boolean isFullHouse(List<Card> hand) {
-        int first = hand.get(0).getNumber();
-        int second = hand.get(1).getNumber();
-        int third = hand.get(2).getNumber();
-        int fourth = hand.get(3).getNumber();
-        int fifth = hand.get(4).getNumber();
-
-        if (first == second && second == third && fourth == fifth) return true;
-        if (second == third && third == fourth && first == fifth) return true;
-        if (third == fourth && fourth == fifth && first == second) return true;
-
-        return false;
-    }
-
-    public static boolean isFlush(List<Card> hand) {
+    private static boolean isFlush(List<Card> hand) {
         Character suit = hand.get(0).getSuit();
         for (Card c : hand) {
             if (c.getSuit() != suit) {
@@ -85,7 +57,7 @@ public class SuperPoker {
         return true;
     }
 
-    public static boolean isStraight(List<Card> hand) {
+    private static boolean isStraight(List<Card> hand) {
         Card first = hand.get(0);
         Card previous = first;
         for (int i = 1; i < hand.size(); i++) {
@@ -97,69 +69,6 @@ public class SuperPoker {
             previous = card;
         }
         return true;
-    }
-
-    public  static boolean isThreeKind(List<Card> hand) {
-        int first = hand.get(0).getNumber();
-        int second = hand.get(1).getNumber();
-        int third = hand.get(2).getNumber();
-        int fourth = hand.get(3).getNumber();
-        int fifth = hand.get(4).getNumber();
-
-        if (first == second && second == third) return true;
-        if (second == third && third == fourth) return true;
-        if (third == fourth && fourth == fifth) return true;
-
-        return false;
-    }
-
-    public static boolean isTwoPair(List<Card> hand) {
-        int first = hand.get(0).getNumber();
-        int second = hand.get(1).getNumber();
-        int third = hand.get(2).getNumber();
-        int fourth = hand.get(3).getNumber();
-        int fifth = hand.get(4).getNumber();
-        if (first == second) {
-            if (third == fourth) return true;
-            if (fourth == fifth) return true;
-            return false;
-        } else if (second == third) {
-            return fourth == fifth;
-        }
-        return false;
-    }
-
-    public static boolean isPair(List<Card> hand) {
-        int first = hand.get(0).getNumber();
-        int second = hand.get(1).getNumber();
-        int third = hand.get(2).getNumber();
-        int fourth = hand.get(3).getNumber();
-        int fifth = hand.get(4).getNumber();
-
-        if (first == second) return true;
-        if (second == third) return true;
-        if (third == fourth) return true;
-        if (fourth == fifth) return true;
-
-        return false;
-    }
-
-    public static boolean isHighCard(List<Card> hand) {
-        return true;
-    }
-
-    public static int findRank(List<Card> hand) {
-        if (isRoyalFlush(hand)) return 1;
-        if (isStraightFlush(hand)) return 2;
-        if (isFourKind(hand)) return 3;
-        if (isFullHouse(hand)) return 4;
-        if (isFlush(hand)) return 5;
-        if (isStraight(hand)) return 6;
-        if (isThreeKind(hand)) return 7;
-        if (isTwoPair(hand)) return 8;
-        if (isPair(hand)) return 9;
-        if (isHighCard(hand)) return 10;
-        return 0;
     }
 
     private static List<Integer> getHighCardWeights(List<Card> cards) {
@@ -312,15 +221,10 @@ public class SuperPoker {
         return result;
     }
 
-    public static int compareHands(ArrayList<Integer> hand1, ArrayList<Integer> hand2) {
-        for (int i = 0; i < 5; i++) {
-            if (hand1.get(i) > hand2.get(i)) {
-                return 1;
-            } else if (hand1.get(i) < hand2.get(i)) {
-                return -1;
-            } else {
-                continue;
-            }
+    public static int compareHands(List<Integer> hand1, List<Integer> hand2) {
+        for (int i = 0; i < hand1.size(); i++) {
+            if (hand1.get(i) > hand2.get(i)) return 1;
+            if (hand1.get(i) < hand2.get(i)) return -1;
         }
         return 0;
     }
