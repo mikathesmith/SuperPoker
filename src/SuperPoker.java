@@ -21,20 +21,16 @@ public class SuperPoker {
     }
 
     public void printResult() {
-        // List<List<Card>> sortedHands = new ArrayList<>();
-        // for (List<Card> hand : hands) {
-        //     List<Card> tmp = new ArrayList<>();
-        //     tmp.addAll(hand);
-        //     sortedHands.add(tmp);
-        // }
-        // Collections.sort(sortedHands, new CompareHands());
-
         List<List<Card>> bestHands = hands.stream()
             .map((List<Card> handOfTwo) -> {
                 List<Card> allCards = new ArrayList<>();
                 allCards.addAll(house);
                 allCards.addAll(handOfTwo);
+
                 List<List<Card>> allHands = new Combinations<Card>(allCards).choose(5);
+                for (List<Card> hand : allHands) {
+                    Collections.sort(hand);
+                }
                 Collections.sort(allHands, new CompareHands());
 
                 return allHands.get(allHands.size() - 1);
@@ -225,6 +221,41 @@ public class SuperPoker {
             return result;
         }
         // End Two Pair
+
+        // Pair
+        if (numbers[0] == numbers[1]) {
+            result.add(Rank.PAIR.getWeight());
+            result.add(hand.get(0).getWeight());
+            result.add(hand.get(4).getWeight());
+            result.add(hand.get(3).getWeight());
+            result.add(hand.get(2).getWeight());
+            return result;
+        }
+        if (numbers[1] == numbers[2]) {
+            result.add(Rank.PAIR.getWeight());
+            result.add(hand.get(1).getWeight());
+            result.add(hand.get(4).getWeight());
+            result.add(hand.get(3).getWeight());
+            result.add(hand.get(0).getWeight());
+            return result;
+        }
+        if (numbers[2] == numbers[3]) {
+            result.add(Rank.PAIR.getWeight());
+            result.add(hand.get(2).getWeight());
+            result.add(hand.get(4).getWeight());
+            result.add(hand.get(1).getWeight());
+            result.add(hand.get(0).getWeight());
+            return result;
+        }
+        if (numbers[3] == numbers[4]) {
+            result.add(Rank.PAIR.getWeight());
+            result.add(hand.get(3).getWeight());
+            result.add(hand.get(2).getWeight());
+            result.add(hand.get(1).getWeight());
+            result.add(hand.get(0).getWeight());
+            return result;
+        }
+        // End Pair
 
         // Otherwise, we have just a high card
         result.add(Rank.HIGH_CARD.getWeight());
